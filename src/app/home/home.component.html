@@ -15,15 +15,20 @@
       </select>
     </div>
 
-    <div>
-      difficulty dropdown goes here
+    <div *ngIf="!authLoading && !configLoading">
+      Difficulty:
+      <select [(ngModel)]="selectedDifficulty" (ngModelChange)="setDifficulty($event)">
+        <option value="easy">Easy</option>
+        <option value="medium">Medium</option>
+        <option value="hard">Hard</option>
+      </select>
     </div>
 
   </div>
 
   <div>
 
-    <app-button buttonText="Play" routerLink="../../play"></app-button>
+    <app-button buttonText="Play" (click)="startGame()" [disabled]="!selectedGenre || !selectedDifficulty"></app-button>
     <app-button buttonText="Leaderboard" routerLink="../../leaderboard"></app-button>
 
   </div>

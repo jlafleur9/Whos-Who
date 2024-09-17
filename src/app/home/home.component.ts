@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import fetchFromSpotify, { request } from "../../services/api";
+import { Router } from '@angular/router';
 
 const AUTH_ENDPOINT =
   "https://nuod0t2zoe.execute-api.us-east-2.amazonaws.com/FT-Classroom/spotify-auth-token";
@@ -13,11 +14,16 @@ const TOKEN_KEY = "whos-who-access-token";
 export class HomeComponent implements OnInit {
   constructor() {}
 
-  genres: String[] = ["House", "Alternative", "J-Rock", "R&B"];
+  genres: String[] = [];
   selectedGenre: String = "";
+  selectedDifficulty = "medium"
   authLoading: boolean = false;
   configLoading: boolean = false;
   token: String = "";
+  artistList: {[key: string]: string[]} = {
+    Pop: ["Katy Perry", "Taylor Swift", "Justin Bieber"],
+    Rock: ["Led Zeppelin", "AC/DC", "Queen"]
+  };
 
   ngOnInit(): void {
     this.authLoading = true;
@@ -47,36 +53,65 @@ export class HomeComponent implements OnInit {
 
   loadGenres = async (t: any) => {
     this.configLoading = true;
-
-    // #################################################################################
-    // DEPRECATED!!! Use only for example purposes
-    // DO NOT USE the recommendations endpoint in your application
-    // Has been known to cause 429 errors
-    // const response = await fetchFromSpotify({
-    //   token: t,
-    //   endpoint: "recommendations/available-genre-seeds",
-    // });
-    // console.log(response);
-    // #################################################################################
-    
     this.genres = [
-      "rock",
-      "rap",
-      "pop",
-      "country",
-      "hip-hop",
-      "jazz",
-      "alternative",
-      "j-pop",
-      "k-pop",
-      "emo"
+      'Pop',
+      'Rock'
     ]
     this.configLoading = false;
-  };
+  }
 
-  setGenre(selectedGenre: any) {
+  setGenre(selectedGenre: any){
     this.selectedGenre = selectedGenre;
     console.log(this.selectedGenre);
     console.log(TOKEN_KEY);
   }
+
+  setDifficulty(selectedDifficulty: any){
+    this.selectedDifficulty = selectedDifficulty;
+    console.log(this.selectedDifficulty)
+  }
+  startGame() {
+    if (!this.selectedGenre || !this.selectedDifficulty) {
+      return;
+    }
+
+    //this.fetchTracks();
+  }
+
+  //Im going to leave the code they provided in comments bellow if in case we need it
+
+  // loadGenres = async (t: any) => {
+  //   this.configLoading = true;
+
+  //   // #################################################################################
+  //   // DEPRECATED!!! Use only for example purposes
+  //   // DO NOT USE the recommendations endpoint in your application
+  //   // Has been known to cause 429 errors
+  //   // const response = await fetchFromSpotify({
+  //   //   token: t,
+  //   //   endpoint: "recommendations/available-genre-seeds",
+  //   // });
+  //   // console.log(response);
+  //   // #################################################################################
+    
+  //   this.genres = [
+  //     "rock",
+  //     "rap",
+  //     "pop",
+  //     "country",
+  //     "hip-hop",
+  //     "jazz",
+  //     "alternative",
+  //     "j-pop",
+  //     "k-pop",
+  //     "emo"
+  //   ]
+  //   this.configLoading = false;
+  // };
+
+  // setGenre(selectedGenre: any) {
+  //   this.selectedGenre = selectedGenre;
+  //   console.log(this.selectedGenre);
+  //   console.log(TOKEN_KEY);
+  // }
 }

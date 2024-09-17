@@ -9,6 +9,7 @@ export class ButtonComponent implements OnInit {
   
   @Input() buttonText: string | undefined
   @Input() routerLink: string | undefined;
+  @Input() disabled: boolean = false;
 
   constructor() { }
 
