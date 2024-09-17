@@ -18,6 +18,7 @@ const routes: Routes = [
   { path: "gameover", component: GameoverComponent },
 ];
 
+
 @NgModule({
   declarations: [
     AppComponent,
