@@ -1,0 +1,9 @@
+<div class="main-container">
+  <h1>Game Over</h1>
+  <p>Your Score: {{score}}</p>
+  <p>Enter your name:</p>
+  <app-textinput (nameChange)="recieveName($event)"></app-textinput>
+  <div *ngIf="showError" class="error-message">Please enter your name before proceeding.</div>
+  <app-button buttonText="Leaderboard" routerLink="/leaderboard" (click)="saveScore()" [disabled]="!name"></app-button>
+  <app-button buttonText="Main Menu" routerLink="/" (click)="saveScore()" [disabled]="!name"></app-button>
+</div>

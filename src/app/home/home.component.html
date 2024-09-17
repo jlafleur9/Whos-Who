@@ -29,7 +29,8 @@
   <div>
 
     <app-button buttonText="Play" (click)="startGame()" [disabled]="!selectedGenre || !selectedDifficulty"></app-button>
-    <app-button buttonText="Leaderboard" routerLink="../../leaderboard"></app-button>
+    <app-button buttonText="Leaderboard" routerLink="/leaderboard"></app-button>
+    <app-button buttonText="Game Over" routerLink="/gameover"></app-button>
 
   </div>
 
