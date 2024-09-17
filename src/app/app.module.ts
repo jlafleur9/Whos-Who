@@ -15,6 +15,7 @@ const routes: Routes = [
   { path: "leaderboard", component: LeaderboardComponent },
 ];
 
+
 @NgModule({
   declarations: [
     AppComponent,

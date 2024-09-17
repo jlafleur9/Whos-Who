@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   token: String = "";
   artistList: {[key: string]: string[]} = {
     Pop: ["Taylor Swift", "Justin Bieber"],
-    Rock: ["Led Zeppelin", "AC/DC", "Queen, Beyoncé"]
+    Rock: ["Led Zeppelin", "AC/DC", "Queen", "Beyoncé"]
   };
 
   ngOnInit(): void {

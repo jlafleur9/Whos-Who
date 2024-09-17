@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import fetchFromSpotify from '../../services/api';
 
-type Genre = 'pop' | 'rock'; // Add other genres as needed
+type Genre = 'Pop' | 'Rock'; // Add other genres as needed
 
 
 @Component({
@@ -17,23 +17,25 @@ export class PlayComponent implements OnInit {
   genre: string = "";
   token: string = "";
 
-  constructor(private router: Router) {}
+  constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
-    const navigation = this.router.getCurrentNavigation();
-    const state = navigation?.extras.state as { track: any; options: string[]; correctArtist: string; genre: string; token: string };
+    // Using ActivatedRoute to access navigation state
+    this.route.paramMap.subscribe(params => {
+      const state = history.state as { track: any; options: string[]; correctArtist: string; genre: Genre; token: string };
 
-    if (state) {
-      console.log(state)
-      this.track = state.track;
-      this.options = state.options;
-      this.correctArtist = state.correctArtist;
-      this.genre = state.genre;
-      this.token = state.token;
-    } else {
-      console.log(state)
-      this.router.navigate(['/']);
-    }
+      if (state) {
+        console.log("Play component received state:", state);
+        this.track = state.track;
+        this.options = state.options;
+        this.correctArtist = state.correctArtist;
+        this.genre = state.genre;
+        this.token = state.token;
+      } else {
+        console.log("No state found, redirecting to home");
+        this.router.navigate(['/']);
+      }
+    });
   }
 
   playAudio() {
@@ -90,8 +92,8 @@ export class PlayComponent implements OnInit {
 
   getArtistList(genre: Genre): string[] {
     const artistList: Record<Genre, string[]> = {
-      pop: ["Katy Perry", "Taylor Swift", "Justin Bieber"],
-      rock: ["Led Zeppelin", "AC/DC", "Queen"],
+      Pop: ["Katy Perry", "Taylor Swift", "Justin Bieber"],
+      Rock: ["Led Zeppelin", "AC/DC", "Queen"],
       // Add other genres and artists here
     };
   
