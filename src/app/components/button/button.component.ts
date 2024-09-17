@@ -9,7 +9,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ButtonComponent implements OnInit {
   
   @Input() buttonText: string | undefined
-  @Input() disabled: boolean = false;
+  // @Input() isDisabled: boolean = false;
 
   
   
