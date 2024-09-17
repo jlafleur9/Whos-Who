@@ -12,7 +12,7 @@ const TOKEN_KEY = "whos-who-access-token";
   styleUrls: ["./home.component.css"],
 })
 export class HomeComponent implements OnInit {
-  constructor() {}
+  constructor(private router: Router) {}
 
   genres: String[] = [];
   selectedGenre: String = "";
@@ -21,8 +21,8 @@ export class HomeComponent implements OnInit {
   configLoading: boolean = false;
   token: String = "";
   artistList: {[key: string]: string[]} = {
-    Pop: ["Katy Perry", "Taylor Swift", "Justin Bieber"],
-    Rock: ["Led Zeppelin", "AC/DC", "Queen"]
+    Pop: ["Taylor Swift", "Justin Bieber"],
+    Rock: ["Led Zeppelin", "AC/DC", "Queen, Beyoncé"]
   };
 
   ngOnInit(): void {
@@ -63,7 +63,7 @@ export class HomeComponent implements OnInit {
   setGenre(selectedGenre: any){
     this.selectedGenre = selectedGenre;
     console.log(this.selectedGenre);
-    console.log(TOKEN_KEY);
+    //console.log(TOKEN_KEY);
   }
 
   setDifficulty(selectedDifficulty: any){
@@ -75,8 +75,79 @@ export class HomeComponent implements OnInit {
       return;
     }
 
-    //this.fetchTracks();
+    this.fetchTracks();
   }
+
+  fetchTracks(){
+    const artists = this.artistList[this.selectedGenre as string]
+    const randomArtist = artists[Math.floor(Math.random() * artists.length)];
+    const endpoint = `search`;
+    const params = {
+      q: `artist:${randomArtist}`,
+      type: "track",
+      limit: 1,
+    };
+
+    fetchFromSpotify({ token: this.token, endpoint, params })
+      .then((data: any) => {
+        const track = data.tracks.items[0];
+        if (track && track.preview_url) {
+          this.navigateToPlayPage(track, artists);
+        } else {
+          console.error("No track preview available for the selected artist.");
+        }
+      })
+      .catch((error: any) => {
+        console.error("Error fetching tracks:", error);
+      });
+  }
+
+  navigateToPlayPage(track: any, artists: string[]) {
+    const numOptions = this.getNumberOfChoices();
+    const correctArtist = track.artists[0].name;
+  
+    const wrongChoices = artists.filter(artist => artist !== correctArtist);
+    const shuffledChoices = this.shuffleArray([...wrongChoices]).slice(0, numOptions - 1);
+    shuffledChoices.push(correctArtist);
+  
+    const options = this.shuffleArray(shuffledChoices);
+  
+    console.log("Navigating to play with state:", {
+      track: track,
+      options: options,
+      correctArtist: correctArtist,
+      genre: this.selectedGenre,
+      token: this.token
+    });
+  
+    this.router.navigate(['play'], {
+      state: { 
+        track: track,
+        options: options,
+        correctArtist: correctArtist,
+        genre: this.selectedGenre,
+        token: this.token 
+      }
+    });
+  }
+
+  getNumberOfChoices() {
+    switch (this.selectedDifficulty) {
+      case 'easy':
+        return 3;
+      case 'medium':
+        return 4;
+      case 'hard':
+        return 5;
+      default:
+        return 4;
+    }
+  }
+
+  shuffleArray(array: any[]) {
+    return array.sort(() => Math.random() - 0.5);
+  }
+}
 
   //Im going to leave the code they provided in comments bellow if in case we need it
 
@@ -114,4 +185,4 @@ export class HomeComponent implements OnInit {
   //   console.log(this.selectedGenre);
   //   console.log(TOKEN_KEY);
   // }
-}
+
