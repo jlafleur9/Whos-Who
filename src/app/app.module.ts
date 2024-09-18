@@ -30,6 +30,7 @@ const routes: Routes = [
     TextinputComponent,
   ],
   imports: [BrowserModule, FormsModule, RouterModule.forRoot(routes), ReactiveFormsModule],
+  exports: [RouterModule],
   providers: [],
   bootstrap: [AppComponent],
 })
