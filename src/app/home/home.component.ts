@@ -22,7 +22,9 @@ export class HomeComponent implements OnInit {
   token: String = "";
   artistList: {[key: string]: string[]} = {
     Pop: ["Taylor Swift", "Justin Bieber"],
-    Rock: ["Led Zeppelin", "AC/DC", "Queen", "Beyoncé"],
+    Rock: ['Linkin Park', 'The Neighbourhood', 'Deftones', 'Green Day', 'Red Hot Chili Peppers', 'Metallica', 'Radiohead', 
+      'Dominic Fike', 'System Of A Down', 'Nickelback', 'Paramore', 'Slipknot', 'Gorillaz', 'Cage The Elephant', 'My Chemical Romance',
+       'Three Days Grace', 'Bring Me The Horizon', 'Led Zeppelin', 'AC/DC','Foo Fighters', 'Muse', 'Alice in Chains', 'Rage Against the Machine',],
     Jpop: ["Ado", "Yorushika", "Reol", "Aimer"]
   };
 
@@ -80,28 +82,38 @@ export class HomeComponent implements OnInit {
     this.fetchTracks();
   }
 
-  fetchTracks(){
+  fetchTracks(attempts = 1){
+    const maxAttempts = 5
     const artists = this.artistList[this.selectedGenre as string]
     const randomArtist = artists[Math.floor(Math.random() * artists.length)];
     const endpoint = `search`;
     const params = {
+      //q: 'Creedence Clearwater Revival',
       q: `artist:${randomArtist}`,
       type: "track",
       limit: 1,
     };
-
     fetchFromSpotify({ token: this.token, endpoint, params })
       .then((data: any) => {
         const track = data.tracks.items[0];
         if (track && track.preview_url) {
           this.navigateToPlayPage(track, artists);
         } else {
+          console.log(data)
           console.error("No track preview available for the selected artist.");
+          if(attempts < maxAttempts){
+            console.log("retrying")
+            this.fetchTracks(attempts + 1)
+          }
         }
       })
       .catch((error: any) => {
         console.error("Error fetching tracks:", error);
-      });
+        if(attempts < maxAttempts){
+          console.log("retrying")
+          this.fetchTracks(attempts + 1)
+        }
+      });  
   }
 
   navigateToPlayPage(track: any, artists: string[]) {
@@ -126,6 +138,7 @@ export class HomeComponent implements OnInit {
       state: { 
         track: track,
         options: options,
+        diffculty: this.selectedDifficulty,
         correctArtist: correctArtist,
         genre: this.selectedGenre,
         token: this.token 
