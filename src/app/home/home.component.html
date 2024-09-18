@@ -1,10 +1,36 @@
 <div *ngIf="authLoading || configLoading">Loading...</div>
-<div *ngIf="!authLoading && !configLoading">
-  Genre:
-  <select [(ngModel)]="selectedGenre" (ngModelChange)="setGenre($event)">
-    <option [value]=""></option>
-    <option [value]="genre" *ngFor="let genre of genres">
-      {{ genre }}
-    </option>
-  </select>
+
+<div class="main-container">
+
+  <div>
+    <h1>Who's Who</h1>
+
+    <div *ngIf="!authLoading && !configLoading">
+      Genre:
+      <select [(ngModel)]="selectedGenre" (ngModelChange)="setGenre($event)">
+        <option [value]=""></option>
+        <option [value]="genre" *ngFor="let genre of genres">
+          {{ genre }}
+        </option>
+      </select>
+    </div>
+
+    <div *ngIf="!authLoading && !configLoading">
+      Difficulty:
+      <select [(ngModel)]="selectedDifficulty" (ngModelChange)="setDifficulty($event)">
+        <option value="easy">Easy</option>
+        <option value="medium">Medium</option>
+        <option value="hard">Hard</option>
+      </select>
+    </div>
+
+  </div>
+
+  <div>
+
+    <app-button buttonText="Play" (click)="startGame()" [disabled]="!selectedGenre || !selectedDifficulty"></app-button>
+    <app-button buttonText="Leaderboard" routerLink="../../leaderboard"></app-button>
+
+  </div>
+
 </div>
