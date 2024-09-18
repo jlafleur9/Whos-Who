@@ -1,0 +1,35 @@
+<div class="main-container">
+  <h1>Game Over</h1>
+  <p>Your Score: {{ points }}</p>
+  <form [formGroup]="leaderboardForm" (ngSubmit)="saveScore(targetRoute)">
+    <label for="name">Enter your name:</label>
+    <input id="name" formControlName="name" />
+    <div
+      *ngIf="
+        leaderboardForm.get('name')?.touched &&
+        leaderboardForm.get('name')?.invalid
+      "
+      class="error-message"
+    >
+      Please enter your name before proceeding.
+    </div>
+    <div>
+      <button
+        class="button"
+        type="button"
+        [disabled]="leaderboardForm.invalid"
+        (click)="saveScore('/leaderboard')"
+      >
+        Leaderboard
+      </button>
+      <button
+        class="button"
+        type="button"
+        [disabled]="leaderboardForm.invalid"
+        (click)="saveScore('/')"
+      >
+        Main Menu
+      </button>
+    </div>
+  </form>
+</div>

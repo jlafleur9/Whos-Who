@@ -1,0 +1,12 @@
+.error-message {
+    color: red;
+    margin-top: 10px;
+  }
+
+  .button:disabled {
+    /* Faded effect for disabled buttons */
+    background-color: #007bff;
+    color: white;
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
