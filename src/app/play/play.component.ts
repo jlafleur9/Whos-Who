@@ -99,9 +99,10 @@ export class PlayComponent implements OnInit {
     }
   }
 
-  setAnswer(selectedArtist: string): void {
-    this.selectedAnswer = selectedArtist;
-    // console.log(this.track.album.images[1])
+  setAnswer(option: string): void {
+    if (!this.selectedAnswer) {
+      this.selectedAnswer = option;
+    }
   }
 
   handleContinue(): void {

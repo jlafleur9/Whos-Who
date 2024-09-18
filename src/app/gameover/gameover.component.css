@@ -5,7 +5,7 @@
 
   .button:disabled {
     /* Faded effect for disabled buttons */
-    background-color: #007bff;
+    background-color: #486581;
     color: white;
     opacity: 0.5;
     cursor: not-allowed;

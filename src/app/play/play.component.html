@@ -18,14 +18,21 @@
       (click)="setAnswer(option)"
     ></app-button>
   </div>
-  <div *ngIf="selectedAnswer">
+  <div *ngIf="selectedAnswer" class="selected-answer">
     <div *ngIf="selectedAnswer === correctArtist; else incorrectText">
       <h3>Correct!</h3>
     </div>
-    <ng-template #incorrectText>
-      <h3>Incorrect! Game over!</h3>
-    </ng-template>
-    <img [src]="track.album.images[1].url" alt="Album Art" />
+
+    <div>
+      <ng-template #incorrectText>
+        <h3>Incorrect! Game over!</h3>
+      </ng-template>
+    </div>
+
+    <div>
+      <img [src]="track.album.images[1].url" alt="Album Art" />
+    </div>
+
     <app-button
       [buttonText]="'Continue'"
       (click)="handleContinue()"

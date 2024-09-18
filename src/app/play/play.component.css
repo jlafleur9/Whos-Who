@@ -5,11 +5,18 @@
 }
 
 ::ng-deep app-button.correct button {
-  background-color: green !important;
+  background-color: #1db954 !important;
   color: white !important;
 }
 
 ::ng-deep app-button.incorrect button {
   background-color: red !important;
   color: white !important;
+}
+
+.selected-answer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }
