@@ -3,7 +3,7 @@ import { ActivatedRoute, Router, NavigationStart } from "@angular/router";
 import { Subscription } from "rxjs";
 import fetchFromSpotify from "../../services/api";
 
-type Genre = "Pop" | "Rock" | "Jpop"; // Add other genres as needed
+type Genre = "Pop" | "Rock" | "Jpop"; // Add other genres as needed.
 
 @Component({
   selector: "app-play",
