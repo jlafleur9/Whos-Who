@@ -67,7 +67,7 @@ export class HomeComponent implements OnInit {
 
   loadGenres = async (t: any) => {
     this.configLoading = true;
-    this.genres = ["Pop", "Rock", "J-pop"];
+    this.genres = ["Pop", "Rock", "J-pop", "Country", "HipHop", "EDM"];
     this.configLoading = false;
   };
 
