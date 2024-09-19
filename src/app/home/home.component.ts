@@ -48,7 +48,7 @@ export class HomeComponent implements OnInit {
       "Alice in Chains",
       "Rage Against the Machine",
     ],
-    Jpop: ["Ado", "Yorushika", "Reol", "Aimer"],
+    ['J-pop']: ["YOASOBI", "RADWIMPS", "Creepy Nuts", "Aimer", "Kenshi Yonezu"],
   };
 
   constructor(private router: Router, private fb: FormBuilder) {
@@ -96,7 +96,7 @@ export class HomeComponent implements OnInit {
 
   loadGenres = async (t: any) => {
     this.configLoading = true;
-    this.genres = ["Pop", "Rock", "Jpop"];
+    this.genres = ["Pop", "Rock", "J-pop"];
     this.configLoading = false;
   };
 

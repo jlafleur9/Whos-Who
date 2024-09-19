@@ -40,15 +40,15 @@ export class GameoverComponent implements OnInit {
       }
     });
 
-    // // seeder scores for testing
-    // let scores: score[] = [
-    //   { name: 'John', score: 100 },
-    //   { name: 'Jane', score: 200 },
-    //   { name: 'Doe', score: 300 },
-    //   { name: 'Smith', score: 400 },
-    //   { name: 'Doe', score: 500 },
-    // ];
-    // localStorage.setItem('scores', JSON.stringify(scores));
+    // seeder scores for testing
+    let scores: score[] = [
+      { name: 'John', score: 1 },
+      { name: 'Jane', score: 2 },
+      { name: 'Doe', score: 3 },
+      { name: 'Smith', score: 4 },
+      { name: 'Doe', score: 5 },
+    ];
+    localStorage.setItem('scores', JSON.stringify(scores));
   }
 
   saveScore(targetRoute: string) {

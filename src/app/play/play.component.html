@@ -1,6 +1,6 @@
 <div class="main-container">
   <h2>Guess the Artist</h2>
-  <!-- <button (click)="playAudio()">Play/Pause</button> -->
+  <p>Round: {{ roundCounter }}</p>
   <app-button [buttonText]="'Play/Pause'" (click)="playAudio()"></app-button>
   <input
     type="range"
@@ -10,6 +10,7 @@
     [value]="volume"
     (input)="setVolume($event)"
   />
+  <progress [value]="currentTime" [max]="duration"></progress>
   <div class="options-container">
     <app-button
       *ngFor="let option of options"
@@ -30,7 +31,11 @@
     </div>
 
     <div>
-      <img [src]="track.album.images[1].url" alt="Album Art" class="album-art"/>
+      <img
+        [src]="track.album.images[1].url"
+        alt="Album Art"
+        class="album-art"
+      />
     </div>
 
     <app-button

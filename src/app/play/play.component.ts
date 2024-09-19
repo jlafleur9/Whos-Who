@@ -3,7 +3,7 @@ import { ActivatedRoute, Router, NavigationStart } from "@angular/router";
 import { Subscription } from "rxjs";
 import fetchFromSpotify from "../../services/api";
 
-type Genre = "Pop" | "Rock" | "Jpop"; // Add other genres as needed.
+type Genre = "Pop" | "Rock" | "J-pop"; // Add other genres as needed.
 
 @Component({
   selector: "app-play",
@@ -21,6 +21,9 @@ export class PlayComponent implements OnInit {
   selectedAnswer: string | null = null;
   routerSubscription: Subscription | null = null;
   points: number = 0;
+  roundCounter: number = 1;
+  currentTime: number = 0;
+  duration: number = 0;
 
   constructor(private route: ActivatedRoute, private router: Router) {}
 
@@ -51,7 +54,7 @@ export class PlayComponent implements OnInit {
     // Subscribe to router events to pause audio on navigation
     this.routerSubscription = this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
-        if (this.audio){
+        if (this.audio) {
           this.audio.pause();
         }
       }
@@ -82,6 +85,23 @@ export class PlayComponent implements OnInit {
       this.audio = new Audio(this.track.preview_url);
       this.audio.volume = this.volume;
       this.audio.play();
+      this.progressBar()
+    }
+  }
+
+  // the progress bar is updated based on the current time and the duration of the song
+  progressBar() {
+    if (this.audio) {
+      this.audio.addEventListener("timeupdate", this.updateProgress.bind(this));
+      this.audio.addEventListener("loadedmetadata", () => {
+        this.duration = this.audio!.duration;
+      });
+    }
+  }
+
+  updateProgress(): void {
+    if (this.audio) {
+      this.currentTime = this.audio.currentTime;
     }
   }
 
@@ -109,12 +129,16 @@ export class PlayComponent implements OnInit {
     // if the answer is correct, next round
     if (this.selectedAnswer === this.correctArtist) {
       this.points += 1;
-      console.log('Correct answer! Points:', this.points);
+      console.log("Correct answer! Points:", this.points);
+      this.roundCounter++;
       this.loadNewTrack();
     }
     // else game over
     else {
-      console.log('Incorrect answer. Navigating to gameover with points:', this.points);
+      console.log(
+        "Incorrect answer. Navigating to gameover with points:",
+        this.points
+      );
       this.router.navigate(["gameover"], { state: { points: this.points } });
     }
   }
@@ -149,11 +173,14 @@ export class PlayComponent implements OnInit {
   setupNewGameRound(track: any, artistList: string[]) {
     this.track = track;
     this.correctArtist = track.artists[0].name;
+    this.duration = 0;
+    this.currentTime = 0;
     if (this.audio) {
       this.audio.pause();
     }
     this.audio = new Audio(this.track.preview_url);
     this.audio.volume = this.volume;
+    this.progressBar()
 
     const numOptions = this.getNumberOfChoices();
     const wrongChoices = artistList.filter(
@@ -172,7 +199,7 @@ export class PlayComponent implements OnInit {
     const artistList: Record<Genre, string[]> = {
       Pop: ["Katy Perry", "Taylor Swift", "Justin Bieber"],
       Rock: ["Led Zeppelin", "AC/DC", "Queen"],
-      Jpop: ["Ado", "Yorushika", "Reol", "Aimer"]
+      ['J-pop']: ["YOASOBI", "RADWIMPS", "Creepy Nuts", "Aimer", "Kenshi Yonezu"],
       // Add other genres and artists here
     };
 
