@@ -193,24 +193,25 @@ export class PlayComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
-    this,
-      this.route.paramMap.subscribe((params) => {
-        const state = history.state as {
-          choices: number;
-          genre: Genre;
-          token: string;
-        };
-        if (state && state.choices) {
-          console.log("Play component received state:", state);
-          this.choices = state.choices;
-          this.genre = state.genre;
-          this.token = state.token;
-          this.fetchFirstTrack();
-        } else {
-          console.log("No state found, redirecting to home");
-          this.router.navigate(["/"]);
-        }
-      });
+    this.route.paramMap.subscribe((params) => {
+      const state = history.state as {
+        choices: number;
+        genre: Genre;
+        token: string;
+      };
+      if (state && state.choices) {
+        console.log("Play component received state:", state);
+        this.choices = state.choices;
+        this.genre = state.genre;
+        this.token = state.token;
+        this.fetchFirstTrack();
+      } else {
+        console.log("No state found, redirecting to home");
+        this.router.navigate(["/"]);
+      }
+    });
+    const storedVolume = localStorage.getItem('volume')
+    this.volume = storedVolume ? parseFloat(storedVolume) : 0.5
     this.routerSubscription = this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         if (this.audio) {
@@ -338,6 +339,7 @@ export class PlayComponent implements OnInit {
         if (this.audio) {
           this.audio.volume = this.volume;
         }
+        localStorage.setItem('volume', this.volume.toString())
         // console.log("Volume changed to:", this.volume);
       }
     }
