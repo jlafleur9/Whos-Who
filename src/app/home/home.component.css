@@ -1,1 +1,9 @@
 @import '../../styles.css';
+
+.selections {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    gap: 20px;
+}
