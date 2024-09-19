@@ -1,6 +1,7 @@
 <div class="main-container">
   <h2>Guess the Artist</h2>
   <p>Round: {{ roundCounter }}</p>
+  <p *ngIf="points > 0">Your Score: {{ points }}</p>
   <app-button [buttonText]="'Play/Pause'" (click)="playAudio()"></app-button>
   <input
     type="range"
