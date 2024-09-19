@@ -12,7 +12,7 @@ type Genre = "Pop" | "Rock" | "J-pop"; // Add other genres as needed.
 })
 export class PlayComponent implements OnInit {
   track: any;
-  choices = 1
+  choices = 1;
   options: string[] = [];
   correctArtist: string = "";
   genre: string = "";
@@ -26,44 +26,146 @@ export class PlayComponent implements OnInit {
   currentTime: number = 0;
   duration: number = 0;
   difficulty: string = "";
-  artistList: {[key: string]: string[]} = {
+  artistList: { [key: string]: string[] } = {
     Pop: ["Taylor Swift", "Justin Bieber"],
     Rock: [
-      'Linkin Park', 'The Neighbourhood', 'Deftones', 'Green Day', 'Red Hot Chili Peppers', 
-      'Metallica', 'Radiohead', 'Dominic Fike', 'System Of A Down', 'Nickelback', 
-      'Paramore', 'Slipknot', 'Gorillaz', 'Cage The Elephant', 'My Chemical Romance',
-      'Three Days Grace', 'Bring Me The Horizon', 'Led Zeppelin', 'AC/DC', 'Foo Fighters', 
-      'Muse', 'Alice in Chains', 'Rage Against the Machine',
-      'Nirvana', 'The Rolling Stones', 'Pearl Jam', 'The Smashing Pumpkins',
-      'Arctic Monkeys', 'The Killers', 'Oasis', 'The Strokes', 'Kings of Leon',
-      'The Black Keys', 'Soundgarden', 'The Who', 'The White Stripes', 'Guns N\' Roses',
-      'The Doors', 'Creedence Clearwater Revival', 'Lynyrd Skynyrd', 'Boston', 'Scorpions',
-      'Bon Jovi', 'Eagles', 'The Clash', 'U2', 'The Offspring',
-      'Weezer', 'Journey', 'Blink-182', 'Bad Religion', 'Fleetwood Mac'
+      "Linkin Park",
+      "The Neighbourhood",
+      "Deftones",
+      "Green Day",
+      "Red Hot Chili Peppers",
+      "Metallica",
+      "Radiohead",
+      "Dominic Fike",
+      "System Of A Down",
+      "Nickelback",
+      "Paramore",
+      "Slipknot",
+      "Gorillaz",
+      "Cage The Elephant",
+      "My Chemical Romance",
+      "Three Days Grace",
+      "Bring Me The Horizon",
+      "Led Zeppelin",
+      "AC/DC",
+      "Foo Fighters",
+      "Muse",
+      "Alice in Chains",
+      "Rage Against the Machine",
+      "Nirvana",
+      "The Rolling Stones",
+      "Pearl Jam",
+      "The Smashing Pumpkins",
+      "Arctic Monkeys",
+      "The Killers",
+      "Oasis",
+      "The Strokes",
+      "Kings of Leon",
+      "The Black Keys",
+      "Soundgarden",
+      "The Who",
+      "The White Stripes",
+      "Guns N' Roses",
+      "The Doors",
+      "Creedence Clearwater Revival",
+      "Lynyrd Skynyrd",
+      "Boston",
+      "Scorpions",
+      "Bon Jovi",
+      "Eagles",
+      "The Clash",
+      "U2",
+      "The Offspring",
+      "Weezer",
+      "Journey",
+      "Blink-182",
+      "Bad Religion",
+      "Fleetwood Mac",
     ],
-    Jpop: ["Ado", "Yorushika", "Reol", "Aimer"]
+    ["J-pop"]: [
+      "Aimer",
+      "amazarashi",
+      "Ariabl'eyeS",
+      "BUMP OF CHICKEN",
+      "ClariS",
+      "Creepy Nuts",
+      "DECO*27",
+      "Dongdang",
+      "EGOIST",
+      "Fear, and Loathing in Las Vegas",
+      "fripSide",
+      "GALNERYUS",
+      "GARNiDELiA",
+      "Gen Hoshino",
+      "Goose house",
+      "HIMEHINA",
+      "Hikaru Utada",
+      "Hoshimachi Suisei",
+      "iroha(sasaki)",
+      "Itou Kanako",
+      "Iyowa",
+      "Kalafina",
+      "Kanaria",
+      "Kenshi Yonezu",
+      "Kikuo",
+      "King Gnu",
+      "Linked Horizon",
+      "MAISONdes",
+      "MAN WITH A MISSION",
+      "Masatoshi Ono",
+      "mikanzil",
+      "Midnight Grand Orchestra",
+      "MYTH & ROID",
+      "natori",
+      "NEEDY GIRL OVERDOSE",
+      "OxT",
+      "PSYQUI",
+      "RADWIMPS",
+      "Reol",
+      "Ryokuoushoku Shakai",
+      "sasakure.UK",
+      "Sangatsu no Phantasia",
+      "supercell",
+      "sumika",
+      "takayan",
+      "THE ORAL CIGARETTES",
+      "TK from Ling tosite sigure",
+      "TOOBOE",
+      "TrySail",
+      "Unlucky Morpheus",
+      "UNISON SQUARE GARDEN",
+      "VK Blanka",
+      "WagakkiBand",
+      "wotaku",
+      "yanaginagi",
+      "Yoshida Yasei",
+      "Yunosuke",
+      "YOASOBI",
+      "μ's"
+    ],
   };
 
   constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
-    this,this.route.paramMap.subscribe((params) => {
-      const state = history.state as {
-        choices: number;
-        genre: Genre;
-        token: string;
-      };
-      if (state && state.choices) {
-        console.log("Play component received state:", state);
-        this.choices = state.choices;
-        this.genre = state.genre;
-        this.token = state.token;
-        this.fetchFirstTrack();
-      } else {
-        console.log("No state found, redirecting to home");
-        this.router.navigate(["/"]);
-      }
-    });
+    this,
+      this.route.paramMap.subscribe((params) => {
+        const state = history.state as {
+          choices: number;
+          genre: Genre;
+          token: string;
+        };
+        if (state && state.choices) {
+          console.log("Play component received state:", state);
+          this.choices = state.choices;
+          this.genre = state.genre;
+          this.token = state.token;
+          this.fetchFirstTrack();
+        } else {
+          console.log("No state found, redirecting to home");
+          this.router.navigate(["/"]);
+        }
+      });
     this.routerSubscription = this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         if (this.audio) {
@@ -72,66 +174,71 @@ export class PlayComponent implements OnInit {
       }
     });
   }
-  fetchFirstTrack(attempts = 1){
-    const maxAttempts = 5
-    const artists = this.artistList[this.genre as string]
-    const randomArtist = artists[Math.floor(Math.random() * artists.length)]
-    const endpoint = 'search'
+  fetchFirstTrack(attempts = 1) {
+    const maxAttempts = 5;
+    const artists = this.artistList[this.genre as string];
+    const randomArtist = artists[Math.floor(Math.random() * artists.length)];
+    const endpoint = "search";
     const params = {
       q: `artist:${randomArtist}`,
       type: "track",
       limit: 1,
-    }
-    fetchFromSpotify({token: this.token, endpoint, params})
-      .then((data: any) => {
-        const track = data.tracks.items[0]
-        if(track && track.preview_url){
-          this.setupGame(track, artists)
+    };
+    fetchFromSpotify({ token: this.token, endpoint, params }).then(
+      (data: any) => {
+        const track = data.tracks.items[0];
+        if (track && track.preview_url) {
+          this.setupGame(track, artists);
         } else {
           console.log(data);
           console.error("No track preview available for the selected artist.");
           if (attempts < maxAttempts) {
             console.log("Retrying...");
             this.fetchFirstTrack(attempts + 1);
-          } else{
-            console.log("Could not get a track from spotify after 5 attempts, going back to home.")
-            this.router.navigate(["/"])
+          } else {
+            console.log(
+              "Could not get a track from spotify after 5 attempts, going back to home."
+            );
+            this.router.navigate(["/"]);
           }
         }
-      })  
+      }
+    );
   }
 
   setupGame(track: any, artists: string[]) {
     const numOptions = this.choices;
     const correctArtist = track.artists[0].name;
-  
+
     // Create wrong choices
-    const wrongChoices = artists.filter(artist => artist !== correctArtist);
-    const shuffledChoices = this.shuffleArray([...wrongChoices]).slice(0, numOptions - 1);
+    const wrongChoices = artists.filter((artist) => artist !== correctArtist);
+    const shuffledChoices = this.shuffleArray([...wrongChoices]).slice(
+      0,
+      numOptions - 1
+    );
     shuffledChoices.push(correctArtist);
-  
+
     // Shuffle all options
     const options = this.shuffleArray(shuffledChoices);
-  
+
     // Set up the game state
     this.track = track;
     this.options = options;
     this.correctArtist = correctArtist;
-  
+
     console.log("Game setup complete with state:", {
       track: track,
       options: options,
       correctArtist: correctArtist,
       genre: this.genre,
-      token: this.token
+      token: this.token,
     });
   }
-  
-  
+
   shuffleArray(array: any[]) {
     return array.sort(() => Math.random() - 0.5);
   }
-  
+
   ngOnDestroy(): void {
     // Unsubscribe from router events to prevent memory leaks
     if (this.routerSubscription) {
@@ -156,7 +263,7 @@ export class PlayComponent implements OnInit {
       this.audio = new Audio(this.track.preview_url);
       this.audio.volume = this.volume;
       this.audio.play();
-      this.progressBar()
+      this.progressBar();
     }
   }
 
@@ -193,8 +300,8 @@ export class PlayComponent implements OnInit {
   setAnswer(option: string): void {
     if (!this.selectedAnswer) {
       this.selectedAnswer = option;
-      if(this.selectedAnswer === this.correctArtist){
-        this.points += 1
+      if (this.selectedAnswer === this.correctArtist) {
+        this.points += 1;
       }
     }
   }
@@ -218,7 +325,7 @@ export class PlayComponent implements OnInit {
 
   loadNewTrack() {
     this.selectedAnswer = null;
-    const artists = this.artistList[this.genre as string]
+    const artists = this.artistList[this.genre as string];
     const randomArtist = artists[Math.floor(Math.random() * artists.length)];
     const endpoint = `search`;
     const params = {
@@ -233,8 +340,10 @@ export class PlayComponent implements OnInit {
         if (newTrack && newTrack.preview_url) {
           this.setupNewGameRound(newTrack, artists);
         } else {
-
-          console.error("No track preview available for the selected artist." + this.correctArtist);
+          console.error(
+            "No track preview available for the selected artist." +
+              this.correctArtist
+          );
           this.loadNewTrack(); // Retry if no preview is available
         }
       })
@@ -253,7 +362,7 @@ export class PlayComponent implements OnInit {
     }
     this.audio = new Audio(this.track.preview_url);
     this.audio.volume = this.volume;
-    this.progressBar()
+    this.progressBar();
 
     const numOptions = this.choices;
     const wrongChoices = artistList.filter(
