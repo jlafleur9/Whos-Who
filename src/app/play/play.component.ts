@@ -182,11 +182,12 @@ export class PlayComponent implements OnInit {
     const params = {
       q: `artist:${randomArtist}`,
       type: "track",
-      limit: 1,
+      limit: 10,
     };
     fetchFromSpotify({ token: this.token, endpoint, params }).then(
       (data: any) => {
-        const track = data.tracks.items[0];
+        const track = data.tracks.items[Math.floor(Math.random() * data.tracks.items.length)];
+        // const track = data.tracks.items[0];
         if (track && track.preview_url) {
           this.setupGame(track, artists);
         } else {
@@ -331,12 +332,13 @@ export class PlayComponent implements OnInit {
     const params = {
       q: `artist:${randomArtist}`,
       type: "track",
-      limit: 1,
+      limit: 10,
     };
 
     fetchFromSpotify({ token: this.token, endpoint, params })
       .then((data: any) => {
-        const newTrack = data.tracks.items[0];
+        const newTrack = data.tracks.items[Math.floor(Math.random() * data.tracks.items.length)];
+        // const newTrack = data.tracks.items[0];
         if (newTrack && newTrack.preview_url) {
           this.setupNewGameRound(newTrack, artists);
         } else {
