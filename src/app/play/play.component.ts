@@ -28,7 +28,7 @@ export class PlayComponent implements OnInit {
   difficulty: string = "";
   artistList: { [key: string]: string[] } = {
     Pop: [
-      "Taylor Swift",
+      
       "Justin Bieber",
       "Ariana Grande",
       "Katy Perry",
